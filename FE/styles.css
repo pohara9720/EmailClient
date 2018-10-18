@@ -1,0 +1,204 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    overflow:auto;
+    /*height: 100%;*/
+    background: linear-gradient(140.11deg, #2864FF 0%, #00E1B4 100%);
+    /*flex-direction: column;*/
+}
+*:focus{
+    outline: none;
+}
+input{
+    padding:10px;
+    border-color: #2864FF;
+}
+#emails{
+    width: 100%;
+}
+#adjust{
+    padding: 0 !important;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+.email-edit{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    /*margin-right: auto;*/
+}
+#adjustname{
+    border-bottom-left-radius: 10px;
+}
+.remove{
+    color: red;
+    font-size: 12px;
+    margin-left: auto;
+    cursor: pointer;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.empty{
+    border-radius: 10px;
+    border-color: #2864FF;
+    border-width: 1px;
+}
+#add{
+    margin-left: auto !important;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+.email-block{
+    color: black;
+    width: 100%;
+    border-color: #2864FF;
+    border-width: 1px;
+    padding-top: 10px;
+}
+.button-div{
+    width: 100%;
+}
+button{
+    margin: 20px 0 100px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 85px;
+    color: white;
+    font-size: 14px;
+    border:none;
+    box-shadow: 2px 1px 19px 8px rgba(255,255,255,0.6);
+    flex-direction: row;
+    max-width: 100%;
+    cursor: pointer;
+    width: 100%;
+    background: linear-gradient(140.11deg, #2864FF 0%, #00E1B4 100%)
+}
+.email-block div{
+    padding: 10px;
+    background-color: white;
+    border-color: black;
+}
+.email-block div .last2{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.first{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom: 1px solid black;
+}
+.mid{
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+.last{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top:1px solid black;
+}
+.last2{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top:none;
+}
+h1{
+    color: white;
+}
+label{
+    margin-right: auto;
+    color: white;
+    padding-top: 5%;
+}
+.sender{
+    padding-top: 5%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33%;
+}
+.sender input{
+    width: 100%;
+    font-size: 14px;
+}
+.loading{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(140.11deg, #2864FF 0%, #00E1B4 100%);
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+}
+.hide{
+    display: none;
+}
+.circle{
+    border-radius: 50%;
+    background-color: #fff;
+    margin: 10px;
+    height: 25px;
+    width: 25px;
+    animation: bounce 1.5s infinite ease;
+}
+
+.circle1{
+    animation-delay: .4s;
+}
+.circle2{
+    animation-delay: .3s;
+}
+.circle3{
+    animation-delay: .2s;
+}
+
+@keyframes bounce {
+    0%, 100% { opacity:1;}
+  
+    60% {
+        transform: translateY(15px);
+        opacity:.0;
+    }
+}
+
+
+@keyframes circle {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+    .container{
+        padding: 10px;
+    }
+    .sender{
+        width: 100%;
+        padding: 10px;
+    }
+
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Artificial Demand Generator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div>
+		<div class='loading hide'>
+            <div class='wrapper'>
+            	  <h1 id="load-mess">Generating</h1>
+                  <div class='circle circle1'>&nbsp;</div>
+                  <div class='circle circle2'>&nbsp;</div>
+                  <div class='circle circle3'>&nbsp;</div>
+                  <div class='circle circle4'>&nbsp;</div>
+            </div>
+        </div>
+        <div class='container'>
+			<div class="sender">
+				<h1>Artificial Demand Generator</h1>
+				<label>Sender Information</label>
+				<input id='sender-display' class="first" type="text" name="name" placeholder="Sender Display Name">
+				<input id='sender-email' class="mid" type="text" name="email" placeholder="Sender Email">
+				<input id='sender-password' class="last" type="text" name="password" placeholder="Sender Password">
+				
+				<label>What would you like to say?</label>
+				<input id='subject' class="first" type="text" name="subject" placeholder="Subject">
+				<input id='message'  class="last2" type="text" name="message" placeholder="Message body">
+
+
+				<label>Who would you like to email?</label>
+				<input id='spam-name' class="first" type="text" name="spam-name" placeholder="Name">
+				<input id='spam-email' class="last2" type="text" name="spam-email" placeholder="Email Address">
+				<label id="add">+ Add Email</label>
+
+				<label>Mailing List</label>
+				<div id='emails'>
+					<div class="email-block">
+						<div class="empty">No emails</div>
+					</div>
+				</div>
+				<div class="button-div">
+					<button id='send'>Generate Demand</button>
+				</div>
+			</div>
+
+        </div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			let retailers = []
+
+			const renderList = (array) => {
+				array.map((l,i) => {
+					$('#emails').append(`
+					<div class="email-block">
+						<div class="first">${l.display}</div>
+						<div id='adjust' class="last2 email-edit"><div id='adjustname'>${l.email}</div><div class="remove" data=${l.email}>Remove</div></div>
+					</div>`)
+				})
+			}
+
+			$('#add').on('click',function(){
+				$('.empty').addClass('hide')
+				$('#emails').empty()
+				var display = $('#spam-name').val()
+				var email = $('#spam-email').val()
+				var item = {display,email}
+				retailers.push(item)
+				renderList(retailers)
+				$('#spam-name').val('')
+				$('#spam-email').val('')
+				console.log('RETAILERS',retailers)
+			})
+
+			$(document).on('click', '.remove', function(){
+				const id = $(this).attr('data')
+				console.log(id)
+				const alter  = retailers.filter(x => x.email !== id)
+				console.log(alter)
+				retailers = alter
+			    $(this).parent('div').parent('div').remove()
+			    console.log(retailers)
+			})
+
+
+			$('#send').on('click',function(){
+				$('.container').addClass('hide')
+				$('.loading').toggleClass('hide')
+
+				var email = {
+					subject: $('#subject').val(),
+					message: $('#message').val()
+				}
+				var user = {
+					name: $('#sender-display').val(),
+					email: $('#sender-email').val(),
+					password: $('#sender-password').val()
+				}
+				const payload = {user,retailers,email}
+				const pay = JSON.stringify(payload)
+				console.log('PAYLOAD',pay)
+				// console.log('PAY',pay)
+
+				var settings = {
+				  "async": true,
+				  "crossDomain": true,
+				  "url":'https://spamdaddy.herokuapp.com/spam',
+				  "method": "POST",
+				  "headers": {
+				    "content-type": "application/json"
+				  },
+				  "processData": false,
+				  "data": pay,
+				  success:(response) => { 
+				  	console.log('Success',response)
+				  	$('#load-mess').val('Success')
+				  	setTimeout(() => {
+				  		$('.loading').toggleClass('hide')
+				  		$('.container').removeClass('hide')
+				  		$('#emails').empty()
+				  	},3000)
+				  },
+				  error: (err) => {
+				  	console.log('Error',err)
+				  	$('#load-mess').val('Error')
+				  	setTimeout(() => {
+				  		$('.loading').toggleClass('hide')
+				  		$('.container').removeClass('hide')
+				  	},3000)
+				  }
+				}
+
+				$.ajax(settings)
+			})
+		})
+	</script>
+</body>
+</html>
